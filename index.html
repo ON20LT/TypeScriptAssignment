@@ -1,16 +1,56 @@
 <!DOCTYPE html>
 <html lang="en">
-
 <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Document</title>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>WG Kostenrechner</title>
+    <link rel = "stylesheet" href = "style.css">
+    <link rel="stylesheet" href="https://use.typekit.net/xzn7acx.css">
 </head>
-
 <body>
-    <my-beispiel></my-beispiel>
-    <script defer src="./build/bundle.js"></script>
-    <input type="text" id="myInput" />
-</body>
+    <button id="scrollToTop" class="scrollButton" onclick="toTopScroll();" aria-label="Zum Anfang der Seite scrollen">Top</button>
 
+    <div class="blockElement">
+
+        <h1>WG Kosten Rechner</h1>
+        <p>- Berechnet eure Ausgaben im Team -</p>
+        <h2>Dein Team</h2> 
+
+        <div class="container">
+            <input id="inputField" class="input" type="text" placeholder="Name hinzufügen" aria-label="Neues Mitglied Namen eintragen" required>
+            <button id="addMember" class="button" aria-label="Neues Mitglied hinzufügen" value="Add">+</button>
+            <ul class="member" id="memberList">
+
+            </ul>
+        </div>
+    </div>
+
+    <div id="billEntry" class="blockElement">
+
+        Neuer Betrag<input id="billAmount" type="number" class="input" placeholder="Betrag hinzufügen" aria-label="Betrag der Ausgaben eintragen">
+        
+        
+         Member 
+            
+                    <select id="selectMem" class="input" name="selectMenuList" multiple>
+                        
+                    </select>
+            
+            <input id="showSelectMember" class="showMember"/>
+            <button id="safeSelect" class="button" value="Auswahl bestätigen" onclick="listBoxResult();">Auswahl bestätigen</button>       
+            <button id="btnCalc" class="button" onclick="calc();">Berechnen</button>
+                
+
+    </div>
+
+    <div id="showKonto" class="blockElement">
+
+    </div>
+
+    
+
+
+    <script src = "script.js"></script>
+</body>
 </html>

@@ -1,24 +1,112 @@
-//THIS IS THE ENTRY FILE - WRITE YOUR MAIN LOGIC HERE!
+//Memberliste Eingabefeld und Button Logik
 
-import { helloWorld, Beispiel } from "./myModule";
-import { alertMe } from "./myOtherModule";
+let members = [];
 
-console.log(helloWorld);
-customElements.define("my-beispiel", Beispiel);
+function addMember () {
+    let template = members.map( members => `<li>${members}</li>`).join('\n');
+    document.querySelector('ul').innerHTML = template;
+}
 
-alertMe();
+addMember();
 
-const myInputValue = document.querySelector<HTMLInputElement>("#myInput");
+let btnAdd = document.getElementById('addMember');
+let input = document.getElementById('inputField');
 
-const myInputValueAlternate = document.querySelector(
-  "#myInput"
-) as HTMLInputElement;
+btnAdd.addEventListener('click', () => {
+    members.push(input.value);
+    addMember()
+})
 
-document
-  .querySelector<HTMLInputElement>("#myInput")
-  ?.addEventListener("focus", doSmth);
+//Auswahlmenü Member
 
-function doSmth(e: UIEvent) {
-  const val = e.target as HTMLInputElement;
-  console.log(e, val.value);
+let select = document.querySelector('select');
+
+btnAdd.addEventListener('click', () =>{
+    let option = document.createElement('option');
+    option.value = input.value.toString();
+    option.text = input.value;
+    select.add(option);
+   
+})
+
+// Erstellen Input Member für Ergebnis
+
+const inpContainer = document.getElementById('showKonto');
+btnAdd.addEventListener('click', AddNew);
+const newInp =document.createElement("input");
+
+function AddNew () {
+    const newInp =document.createElement("input");
+    newInp.classList.add('billDisplay');
+    newInp.id = document.getElementById('inputField').value;
+    inpContainer.appendChild(newInp);
+    input.value = '';
+}
+
+// Anzahl ausgewählter Member
+
+let spanResult = document.getElementById('showSelectMember');
+function listBoxResult () {
+    spanResult.value= "";
+    let x = document.getElementById('selectMem');
+    for ( let i=0; i<x.options.length; i++){
+        if (x.options[i].selected === true){
+            spanResult.value += x.options[i].value + " ";
+            document.getElementById('showSelectMember').innerHTML=spanResult.value;
+        }
+        if (document.getElementById('showSelectMember').value == ""){
+            document.getElementById('showSelectMember').innerHTML= 'Bitte mindestens ein Teammitglied auswählen';
+        }
+    
+    }
+}
+
+
+//Eingabe Zahlung Logik und Button
+
+let auswahlMem = document.getElementById('safeSelect');
+auswahlMem.addEventListener('click', payingMem);
+let choice = [];
+
+function payingMem () {
+    let select = document.getElementById('selectMem');
+    choice = [].map.call(select.selectedOptions, (option) => option.value);
+}
+
+let CalcResult = document.querySelectorAll('.billDisplay');
+if (CalcResult.id === choice.value) {
+    function calc () {
+        let billAmount = document.getElementById('billAmount').value;
+        document.querySelector('.billDisplay').value = parseFloat(billAmount) / choice.length;
+        
+    }
+}
+
+function calc () {
+    let billAmount = document.getElementById('billAmount').value;
+    document.querySelector('.billDisplay').value = parseFloat(billAmount) / choice.length;
+    
+}
+
+
+//Scroll Button
+
+scrollButton = document.getElementById ('scrollToTop');
+
+window.onscroll = function () {toTopFunction()};
+
+function toTopFunction () {
+    if (document.documentElement.scrollTop > 20) {
+        scrollButton.style.display = 'block';
+    }
+    else {
+        scrollButton.style.display = 'none';
+    }
+}
+function toTopScroll () {
+    window.scrollTo({
+        top: 0,
+        left: 0,
+        behavior: 'smooth'
+    })
 }

@@ -1,0 +1,149 @@
+body {
+    font-family: sans-serif;
+    font-weight: lighter;
+    background-color: salmon;
+    background-image: url("watercolour.jpg");
+    font-size: 18px;
+}
+h1 {
+    margin: 20px auto 50px;
+    font-size: 48px;
+    font-weight: 300;
+    text-align: center;
+    letter-spacing: 2px;
+    line-height: 1.5;
+    font-family: neonoir, sans-serif;
+    color: rgb(230, 20, 125);
+}
+
+h2 {
+    font-size: 28px;
+    font-weight: 300;
+}
+.blockElement {
+    min-height: 200px;
+    min-width: 200px;
+    max-width: 1000px;
+    padding: 45px 45px 45px 45px;
+    margin: 0px 20px 20px 20px;
+    position: relative;
+    font-size: 22px;
+    background-color: #f6f7f8;
+    box-shadow: 2px 2px 20px rgba(0,0,0,.2);
+    border-radius: 15px;
+    border: none;
+    box-sizing: border-box;
+    transition: all .3s;
+}
+.blockElement p {
+    text-align: center;
+    font-size: 18;
+    font-weight: lighter;
+    padding: 15px 0px;
+}
+.button {
+    background-color: rgb(255, 255, 255);
+    border-radius: 15px;
+    min-height: 35px;
+    min-width: 35px;
+    max-width: 140px;
+    border: none;
+    vertical-align: middle;
+    text-align: center;
+    cursor: pointer;
+    white-space: nowrap;
+    box-shadow: 2px 2px 20px rgba(0,0,0,.2);
+    margin: 15px 0px;
+
+}
+.button:hover {
+    box-shadow: 2px 2px 20px rgba(92, 90, 90, 0.705);
+    transition: all 0.3s ease;
+}
+.input {
+    font-size: 18px;
+    min-height: 15px;
+    min-width: 250px;
+    padding: 10px 0px;
+    margin: 10px 0px;
+    border: none;
+    border-radius: 15px;
+    vertical-align: middle;
+    text-align: center;
+    cursor: pointer;
+    white-space: nowrap;
+    box-shadow: 2px 2px 20px rgba(0,0,0,.2);
+}
+
+.input:hover {
+    box-shadow: 2px 2px 20px rgba(92, 90, 90, 0.705);
+    transition: all 0.3s ease;
+}
+
+.member {
+    background-color: rgb(255, 255, 255);
+    box-shadow: 2px 2px 20px rgba(0,0,0,.2);
+    border: none;
+    border-radius: 15px;
+}
+li {
+    font-size: 18px;
+    list-style: none;
+    padding: 5px 0px;
+}
+#billEntry {
+    display: grid;
+   
+}
+select {
+    font-size: 18px;
+}
+.billDisplay {
+    position: relative;
+    font-size: 18px;
+    min-height: 15px;
+    min-width: 250px;
+    padding: 10px 0px;
+    margin: 10px 0px;
+    border: none;
+    border-radius: 15px;
+    vertical-align: middle;
+    text-align: center;
+    box-shadow: 2px 2px 20px rgba(0,0,0,.2);
+    padding: 15px;
+    margin: 10px;
+    box-sizing: border-box;
+    
+}
+
+.scrollButton {
+        position: fixed;
+        bottom: 70px;
+        right: 30px;
+        background-color: rgb(255, 255, 255);
+        border-radius: 15px;
+        min-height: 50px;
+        min-width: 50px;
+        border: none;
+        box-shadow: 2px 2px 20px rgba(0,0,0,.2);
+        vertical-align: middle;
+        text-align: center;
+        cursor: pointer;
+        z-index: 99;
+}
+.scrollButton:hover {
+    box-shadow: 2px 2px 20px rgba(92, 90, 90, 0.705);
+    transition: all 0.3s ease;
+}
+.showMember {
+    font-size: 18px;
+    color: rgb(230, 20, 125);
+    background-color: #f6f7f8;
+    min-height: 15px;
+    min-width: 250px;
+    padding: 10px 0px;
+    margin: 10px 0px;
+    border: none;
+    border-radius: 15px;
+    cursor: pointer;
+}
