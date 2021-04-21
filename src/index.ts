@@ -1,6 +1,8 @@
+export {}
+
 //Memberliste Eingabefeld und Button Logik
 
-let members = [];
+let members: string[] = [];
 
 function addMember () {
     let template = members.map( members => `<li>${members}</li>`).join('\n');
@@ -10,9 +12,9 @@ function addMember () {
 addMember();
 
 let btnAdd = document.getElementById('addMember');
-let input = document.getElementById('inputField');
+let input = document.getElementById('inputField') as HTMLInputElement;
 
-btnAdd.addEventListener('click', () => {
+btnAdd?.addEventListener('click', () => {
     members.push(input.value);
     addMember()
 })
@@ -21,7 +23,7 @@ btnAdd.addEventListener('click', () => {
 
 let select = document.querySelector('select');
 
-btnAdd.addEventListener('click', () =>{
+btnAdd?.addEventListener('click', (e:Event) =>{
     let option = document.createElement('option');
     option.value = input.value.toString();
     option.text = input.value;
@@ -31,21 +33,21 @@ btnAdd.addEventListener('click', () =>{
 
 // Erstellen Input Member für Ergebnis
 
-const inpContainer = document.getElementById('showKonto');
-btnAdd.addEventListener('click', AddNew);
+const inpContainer = document.getElementById('showKonto')?.innerHTML;
+btnAdd?.addEventListener('click', AddNew);
 const newInp =document.createElement("input");
 
 function AddNew () {
     const newInp =document.createElement("input");
     newInp.classList.add('billDisplay');
-    newInp.id = document.getElementById('inputField').value;
+    newInp.id = (document.getElementById('inputField') as HTMLInputElement).value;
     inpContainer.appendChild(newInp);
     input.value = '';
 }
 
 // Anzahl ausgewählter Member
 
-let spanResult = document.getElementById('showSelectMember');
+let spanResult = document.getElementById('showSelectMember')?.innerHTML;
 function listBoxResult () {
     spanResult.value= "";
     let x = document.getElementById('selectMem');
@@ -65,21 +67,12 @@ function listBoxResult () {
 //Eingabe Zahlung Logik und Button
 
 let auswahlMem = document.getElementById('safeSelect');
-auswahlMem.addEventListener('click', payingMem);
-let choice = [];
+auswahlMem?.addEventListener('click', payingMem);
+let choice :string [] = [];
 
 function payingMem () {
     let select = document.getElementById('selectMem');
     choice = [].map.call(select.selectedOptions, (option) => option.value);
-}
-
-let CalcResult = document.querySelectorAll('.billDisplay');
-if (CalcResult.id === choice.value) {
-    function calc () {
-        let billAmount = document.getElementById('billAmount').value;
-        document.querySelector('.billDisplay').value = parseFloat(billAmount) / choice.length;
-        
-    }
 }
 
 function calc () {
@@ -91,7 +84,7 @@ function calc () {
 
 //Scroll Button
 
-scrollButton = document.getElementById ('scrollToTop');
+let scrollButton = document.getElementById ('scrollToTop');
 
 window.onscroll = function () {toTopFunction()};
 
