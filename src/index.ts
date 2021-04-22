@@ -6,7 +6,7 @@ let members: string[] = [];
 
 function addMember () {
     let template = members.map( members => `<li>${members}</li>`).join('\n');
-    document.querySelector('ul').innerHTML = template;
+    (document.querySelector('ul')as HTMLElement).innerHTML = template;
 }
 
 addMember();
@@ -76,15 +76,15 @@ function payingMem () {
 }
 
 function calc () {
-    let billAmount = document.getElementById('billAmount').value;
-    document.querySelector('.billDisplay').value = parseFloat(billAmount) / choice.length;
+    let billAmount = (document.getElementById('billAmount')as HTMLInputElement).value;
+    (document.querySelector('.billDisplay')as HTMLInputElement).value = (parseFloat(billAmount) / choice.length).toString();
     
 }
 
 
 //Scroll Button
 
-let scrollButton = document.getElementById ('scrollToTop');
+let scrollButton = document.getElementById ('scrollToTop') as HTMLElement;
 
 window.onscroll = function () {toTopFunction()};
 
