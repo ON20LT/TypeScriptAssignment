@@ -94,7 +94,10 @@ function calc() {
     const oldresult = parseFloat(choiceInput.value || '0');
 
     if (memPay == choice) {
-      const result = (oldresult + ((billAmount / choices.length) * ((choices.length) -1 )).toString();
+      const result = (
+        oldresult +
+        (billAmount - billAmount / choices.length)
+      ).toString();
       choiceInput.value = result;
     } else {
       const result = (oldresult - billAmount / choices.length).toString();
