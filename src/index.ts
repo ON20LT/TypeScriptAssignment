@@ -19,13 +19,21 @@ btnAdd.addEventListener('click', () => {
 
 //Auswahlmenü Member
 
-const select = document.querySelector('select') as HTMLSelectElement;
+const selectSplit = document.getElementById('selectMem') as HTMLSelectElement;
+const selectPay = document.getElementById('selectMemPay') as HTMLSelectElement;
 
-btnAdd.addEventListener('click', (e: Event) => {
+btnAdd.addEventListener('click', () => {
   const option = document.createElement('option');
   option.value = input.value.toString();
   option.text = input.value;
-  select.add(option);
+  selectPay.add(option);
+});
+
+btnAdd.addEventListener('click', () => {
+  const option = document.createElement('option');
+  option.value = input.value.toString();
+  option.text = input.value;
+  selectSplit.add(option);
 });
 
 // Erstellen Input Member für Ergebnis
@@ -71,20 +79,27 @@ auswahlMem.addEventListener('click', listBoxResult);
 
 const btnCalc = document.getElementById('btnCalc') as HTMLButtonElement;
 btnCalc.addEventListener('click', calc);
+
 function calc() {
   const billAmountElement = document.getElementById(
     'billAmount',
   ) as HTMLInputElement;
 
   const billAmount = parseFloat(billAmountElement.value);
+  let memPay = selectPay.options[selectPay.selectedIndex].text;
 
   for (const choice of choices) {
     const choiceInput = document.getElementById(choice) as HTMLInputElement;
 
     const oldresult = parseFloat(choiceInput.value || '0');
 
-    const result = (oldresult + billAmount / choices.length).toString();
-    choiceInput.value = result;
+    if (memPay == choice) {
+      const result = (oldresult + ((billAmount / choices.length) * ((choices.length) -1 )).toString();
+      choiceInput.value = result;
+    } else {
+      const result = (oldresult - billAmount / choices.length).toString();
+      choiceInput.value = result;
+    }
   }
 }
 

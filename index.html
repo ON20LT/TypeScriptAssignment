@@ -20,6 +20,7 @@
     <div class="blockElement">
       <h1>WG Kosten Rechner</h1>
       <p>- Berechnet eure Ausgaben im Team -</p>
+      <br />
       <h2>Dein Team</h2>
 
       <div class="container">
@@ -44,7 +45,7 @@
     </div>
 
     <div id="billEntry" class="blockElement">
-      Neuer Betrag<input
+      Neuen Betrag eingebeng<input
         id="billAmount"
         type="number"
         class="input"
@@ -52,7 +53,16 @@
         aria-label="Betrag der Ausgaben eintragen"
       />
 
-      Member
+      Wer hat gezahlt
+
+      <select
+        id="selectMemPay"
+        class="input"
+        name="selectMenuListPay"
+        type="radio"
+      ></select>
+
+      Member zum Teilen auswählen
 
       <select
         id="selectMem"
