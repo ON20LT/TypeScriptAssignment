@@ -94,14 +94,26 @@ function calc() {
     const oldresult = parseFloat(choiceInput.value || '0');
 
     if (memPay == choice) {
-      const result = (
-        oldresult +
-        (billAmount - billAmount / choices.length)
-      ).toString();
-      choiceInput.value = result;
+      if (memPay == choice) {
+        const result = (
+          oldresult +
+          (billAmount - billAmount / choices.length)
+        ).toString();
+        choiceInput.value = result;
+      } else {
+        const result = (oldresult - billAmount / choices.length).toString();
+        choiceInput.value = result;
+      }
     } else {
-      const result = (oldresult - billAmount / choices.length).toString();
-      choiceInput.value = result;
+      const payer = document.getElementById(memPay) as HTMLInputElement;
+      if (choiceInput.id != memPay) {
+        const result = (oldresult - billAmount / choices.length).toString();
+        choiceInput.value = result;
+      }
+      if (payer.id == memPay) {
+        const result = (oldresult + billAmount).toString();
+        payer.value = result;
+      }
     }
   }
 }
