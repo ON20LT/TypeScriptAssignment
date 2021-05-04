@@ -12,40 +12,36 @@ addMember();
 const btnAdd = document.getElementById('addMember') as HTMLButtonElement;
 const input = document.getElementById('inputField') as HTMLInputElement;
 
-btnAdd.addEventListener('click', () => {
-  members.push(input.value);
-  addMember();
-});
-
 //Auswahlmenü Member
 
 const selectSplit = document.getElementById('selectMem') as HTMLSelectElement;
 const selectPay = document.getElementById('selectMemPay') as HTMLSelectElement;
 
 btnAdd.addEventListener('click', () => {
-  const option = document.createElement('option');
-  option.value = input.value.toString();
-  option.text = input.value;
-  selectPay.add(option);
-});
+  const optionPay = document.createElement('option');
+  optionPay.value = input.value.toString();
+  optionPay.text = input.value;
+  selectPay.add(optionPay);
 
-btnAdd.addEventListener('click', () => {
-  const option = document.createElement('option');
-  option.value = input.value.toString();
-  option.text = input.value;
-  selectSplit.add(option);
+  const optionSplit = document.createElement('option');
+  optionSplit.value = input.value.toString();
+  optionSplit.text = input.value;
+  selectSplit.add(optionSplit);
+  members.push(input.value);
+  addMember();
+  addNew(input.value);
 });
 
 // Erstellen Input Member für Ergebnis
 
 const inpContainer = document.getElementById('showKonto') as HTMLElement;
-btnAdd.addEventListener('click', addNew);
-const newInp = document.createElement('input');
 
-function addNew() {
-  const newInp = document.createElement('input') as HTMLInputElement;
+function addNew(name: string) {
+  const newInp = document.createElement('div') as HTMLDivElement;
+  newInp.innerHTML = `<div class='name'></div><div class='account'></div>`;
   newInp.classList.add('billDisplay');
-  newInp.id = (document.getElementById('inputField') as HTMLInputElement).value;
+  newInp.id = name;
+  newInp.querySelector<HTMLDivElement>('.name')!.innerText = name;
   inpContainer.appendChild(newInp);
   input.value = '';
 }
@@ -89,30 +85,34 @@ function calc() {
   let memPay = selectPay.options[selectPay.selectedIndex].text;
 
   for (const choice of choices) {
-    const choiceInput = document.getElementById(choice) as HTMLInputElement;
+    const choiceElement = document.getElementById(choice) as HTMLDivElement;
+    const kontostand = choiceElement.querySelector(
+      '.account',
+    ) as HTMLDivElement;
 
-    const oldresult = parseFloat(choiceInput.value || '0');
+    const oldresult = parseFloat(kontostand.innerText || '0');
 
     if (memPay == choice) {
+      console.log('a');
       if (memPay == choice) {
         const result = (
           oldresult +
           (billAmount - billAmount / choices.length)
         ).toString();
-        choiceInput.value = result;
+        kontostand.innerText = result;
       } else {
         const result = (oldresult - billAmount / choices.length).toString();
-        choiceInput.value = result;
+        kontostand.innerText = result;
       }
     } else {
+      console.log('b');
       const payer = document.getElementById(memPay) as HTMLInputElement;
-      if (choiceInput.id != memPay) {
+      if (kontostand.id != memPay) {
         const result = (oldresult - billAmount / choices.length).toString();
-        choiceInput.value = result;
-      }
-      if (payer.id == memPay) {
+        kontostand.innerText = result;
+      } else if (kontostand.id == memPay) {
         const result = (oldresult + billAmount).toString();
-        payer.value = result;
+        kontostand.innerText = result;
       }
     }
   }
