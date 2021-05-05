@@ -42,6 +42,7 @@ btnAddMember.addEventListener('click', () => {
 
 const AccountDivs = document.getElementById('showKonto') as HTMLElement;
 
+//Hilfestellung durch Herrn Slezak 45 bis 53
 function addNew(name: string) {
   const MemberAccount = document.createElement('div') as HTMLDivElement;
   MemberAccount.innerHTML = `<div class='name'></div><div class='account'></div>`;
@@ -105,9 +106,9 @@ function calculateAccount() {
 
     const oldAccount = parseFloat(account.innerText || '0');
 
-    if (payingMember == pers) {
+    if (pers == payingMember) {
       console.log('a');
-      if (payingMember == pers) {
+      if (pers == payingMember) {
         const resultCalc = (
           oldAccount +
           (billAmount - billAmount / splitSelectedMembers.length)
