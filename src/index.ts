@@ -99,20 +99,24 @@ function calc() {
           oldresult +
           (billAmount - billAmount / choices.length)
         ).toString();
-        kontostand.innerText = result;
+        const resultRounded = parseFloat(result).toFixed(2);
+        kontostand.innerText = resultRounded;
       } else {
         const result = (oldresult - billAmount / choices.length).toString();
-        kontostand.innerText = result;
+        const resultRounded = parseFloat(result).toFixed(2);
+        kontostand.innerText = resultRounded;
       }
     } else {
       console.log('b');
       const payer = document.getElementById(memPay) as HTMLInputElement;
       if (kontostand.id != memPay) {
         const result = (oldresult - billAmount / choices.length).toString();
-        kontostand.innerText = result;
+        const resultRounded = parseFloat(result).toFixed(2);
+        kontostand.innerText = resultRounded;
       } else if (kontostand.id == memPay) {
         const result = (oldresult + billAmount).toString();
-        kontostand.innerText = result;
+        const resultRounded = parseFloat(result).toFixed(2);
+        kontostand.innerText = resultRounded;
       }
     }
   }
