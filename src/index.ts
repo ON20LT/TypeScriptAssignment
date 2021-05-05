@@ -3,125 +3,142 @@
 const members: string[] = [];
 
 function addMember() {
-  const template = members.map((members) => `<li>${members}</li>`).join('\n');
-  (document.querySelector('ul') as HTMLElement).innerHTML = template;
+  const membersList = members
+    .map((members) => `<li>${members}</li>`)
+    .join('\n');
+  (document.querySelector('ul') as HTMLElement).innerHTML = membersList;
 }
 
 addMember();
 
-const btnAdd = document.getElementById('addMember') as HTMLButtonElement;
-const input = document.getElementById('inputField') as HTMLInputElement;
+const btnAddMember = document.getElementById('addMember') as HTMLButtonElement;
+const membersInput = document.getElementById('inputField') as HTMLInputElement;
 
 //Auswahlmenü Member
 
-const selectSplit = document.getElementById('selectMem') as HTMLSelectElement;
-const selectPay = document.getElementById('selectMemPay') as HTMLSelectElement;
+const selectPayingMember = document.getElementById(
+  'selectMemPay',
+) as HTMLSelectElement;
+const selectSplitGroup = document.getElementById(
+  'selectMem',
+) as HTMLSelectElement;
 
-btnAdd.addEventListener('click', () => {
-  const optionPay = document.createElement('option');
-  optionPay.value = input.value.toString();
-  optionPay.text = input.value;
-  selectPay.add(optionPay);
+btnAddMember.addEventListener('click', () => {
+  const MemberOptionPay = document.createElement('option');
+  MemberOptionPay.value = membersInput.value.toString();
+  MemberOptionPay.text = membersInput.value;
+  selectPayingMember.add(MemberOptionPay);
 
-  const optionSplit = document.createElement('option');
-  optionSplit.value = input.value.toString();
-  optionSplit.text = input.value;
-  selectSplit.add(optionSplit);
-  members.push(input.value);
+  const MemberOptionSplit = document.createElement('option');
+  MemberOptionSplit.value = membersInput.value.toString();
+  MemberOptionSplit.text = membersInput.value;
+  selectSplitGroup.add(MemberOptionSplit);
+  members.push(membersInput.value);
   addMember();
-  addNew(input.value);
+  addNew(membersInput.value);
 });
 
 // Erstellen Input Member für Ergebnis
 
-const inpContainer = document.getElementById('showKonto') as HTMLElement;
+const AccountDivs = document.getElementById('showKonto') as HTMLElement;
 
 function addNew(name: string) {
-  const newInp = document.createElement('div') as HTMLDivElement;
-  newInp.innerHTML = `<div class='name'></div><div class='account'></div>`;
-  newInp.classList.add('billDisplay');
-  newInp.id = name;
-  newInp.querySelector<HTMLDivElement>('.name')!.innerText = name;
-  inpContainer.appendChild(newInp);
-  input.value = '';
+  const MemberAccount = document.createElement('div') as HTMLDivElement;
+  MemberAccount.innerHTML = `<div class='name'></div><div class='account'></div>`;
+  MemberAccount.classList.add('billDisplay');
+  MemberAccount.id = name;
+  MemberAccount.querySelector<HTMLDivElement>('.name')!.innerText = name;
+  AccountDivs.appendChild(MemberAccount);
+  membersInput.value = '';
 }
 
 // Anzahl ausgewählter Member
 
-const spanResult = document.getElementById(
+const showSplitSelectedMembers = document.getElementById(
   'showSelectMember',
-) as HTMLInputElement;
+) as HTMLDivElement;
 
-let choices: string[] = [];
+let splitSelectedMembers: string[] = [];
 
 function listBoxResult() {
-  spanResult.value = '';
+  showSplitSelectedMembers.innerText = '';
 
   const x = document.getElementById('selectMem') as HTMLSelectElement;
   for (let i = 0; i < x.options.length; i++) {
     if (x.options[i].selected === true) {
-      spanResult.value += x.options[i].value + ' ';
+      showSplitSelectedMembers.innerText += x.options[i].value + ' ';
     }
   }
 
-  const select = document.getElementById('selectMem') as HTMLSelectElement;
-  choices = [...select.selectedOptions].map((option) => option.value);
+  const selected = document.getElementById('selectMem') as HTMLSelectElement;
+  splitSelectedMembers = [...selected.selectedOptions].map(
+    (option) => option.value,
+  );
 }
 
 //Eingabe Zahlung Logik und Button
 
-const auswahlMem = document.getElementById('safeSelect') as HTMLButtonElement;
-auswahlMem.addEventListener('click', listBoxResult);
+const safeSelectedMembers = document.getElementById(
+  'safeSelect',
+) as HTMLButtonElement;
+safeSelectedMembers.addEventListener('click', listBoxResult);
 
 const btnCalc = document.getElementById('btnCalc') as HTMLButtonElement;
-btnCalc.addEventListener('click', calc);
+btnCalc.addEventListener('click', calculateAccount);
 
-function calc() {
+function calculateAccount() {
   const billAmountElement = document.getElementById(
     'billAmount',
   ) as HTMLInputElement;
 
   const billAmount = parseFloat(billAmountElement.value);
-  let memPay = selectPay.options[selectPay.selectedIndex].text;
+  let payingMember =
+    selectPayingMember.options[selectPayingMember.selectedIndex].text;
 
-  for (const choice of choices) {
-    const choiceElement = document.getElementById(choice) as HTMLDivElement;
-    const kontostand = choiceElement.querySelector(
+  for (const pers of splitSelectedMembers) {
+    const memberAccountElement = document.getElementById(
+      pers,
+    ) as HTMLDivElement;
+    const account = memberAccountElement.querySelector(
       '.account',
     ) as HTMLDivElement;
 
-    const oldresult = parseFloat(kontostand.innerText || '0');
+    const oldAccount = parseFloat(account.innerText || '0');
 
-    if (memPay == choice) {
+    if (payingMember == pers) {
       console.log('a');
-      if (memPay == choice) {
+      if (payingMember == pers) {
+        const resultCalc = (
+          oldAccount +
+          (billAmount - billAmount / splitSelectedMembers.length)
+        ).toString();
+        const newAccount = parseFloat(resultCalc).toFixed(2);
+        account.innerText = newAccount;
+      } else {
         const result = (
-          oldresult +
-          (billAmount - billAmount / choices.length)
+          oldAccount -
+          billAmount / splitSelectedMembers.length
         ).toString();
         const resultRounded = parseFloat(result).toFixed(2);
-        kontostand.innerText = resultRounded;
-      } else {
-        const result = (oldresult - billAmount / choices.length).toString();
-        const resultRounded = parseFloat(result).toFixed(2);
-        kontostand.innerText = resultRounded;
+        account.innerText = resultRounded;
       }
     } else {
       console.log('b');
-      const payer = document.getElementById(memPay) as HTMLInputElement;
-      if (kontostand.id != memPay) {
-        const result = (oldresult - billAmount / choices.length).toString();
+      if (account.id != payingMember) {
+        const result = (
+          oldAccount -
+          billAmount / splitSelectedMembers.length
+        ).toString();
         const resultRounded = parseFloat(result).toFixed(2);
-        kontostand.innerText = resultRounded;
-      } else if (kontostand.id == memPay) {
-        const result = (oldresult + billAmount).toString();
+        account.innerText = resultRounded;
+      } else if (account.id == payingMember) {
+        const result = (oldAccount + billAmount).toString();
         const resultRounded = parseFloat(result).toFixed(2);
-        kontostand.innerText = resultRounded;
+        account.innerText = resultRounded;
       }
     }
   }
 }
-
 //Scroll Button
 
 const scrollButton = document.getElementById(
@@ -129,10 +146,9 @@ const scrollButton = document.getElementById(
 ) as HTMLButtonElement;
 scrollButton.addEventListener('click', toTopScroll);
 window.onscroll = function () {
-  toTopFunction();
+  showOnScroll();
 };
-
-function toTopFunction() {
+function showOnScroll() {
   if (document.documentElement.scrollTop > 20) {
     scrollButton.style.display = 'block';
   } else {
