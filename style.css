@@ -4,8 +4,8 @@ body {
   background-color: salmon;
   background-image: url('watercolour.jpg');
   font-size: 18px;
-  justify-content: center;
-  padding: 0px 200px;
+  margin: auto;
+  width: 60%;
 }
 h1 {
   margin: 20px auto 50px;
